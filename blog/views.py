@@ -7,7 +7,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.authentication import TokenAuthentication
 
 from blog.models import Post, Category, Profile, Comment
-from blog.permissions import IsAuthorOrReadOnly
+from blog.permissions import IsAuthorOrReadOnly, UserPermission
 from blog.serializers import UserSerilizer, PostSerializer, CategorySerializer, ProfileSerializer, CommentSerializer
 
 
@@ -17,6 +17,7 @@ def Index(request):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerilizer
+    permission_classes = (UserPermission,)
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
