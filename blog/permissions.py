@@ -21,8 +21,6 @@ class IsAuthor(permissions.BasePermission):
             return True
         return False
 
-from rest_framework import permissions
-
 class UserPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
