@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from blog.views import Index, PostViewSet, CategoryViewSet, ProfileViewSet, CommentViewSet, UserViewSet
+from blog.views import Index, PostViewSet, CategoryViewSet, ProfileViewSet, CommentViewSet, UserViewSet, getUser
 
 # PostList, PostDetails
 
@@ -14,7 +14,10 @@ router.register('profiles', ProfileViewSet,'Profiles')
 router.register('comments', CommentViewSet,'Comments')
 router.register('users', UserViewSet, basename='users')
 
+
 urlpatterns=[
     path('', Index),
+    path('api/getuser/', getUser.as_view()),
     path('api/', include(router.urls)),
+
 ]

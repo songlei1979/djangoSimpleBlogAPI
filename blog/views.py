@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, authentication
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from blog.models import Post, Category, Profile, Comment
 from blog.permissions import IsAuthorOrReadOnly, UserPermission
@@ -18,6 +21,15 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerilizer
     permission_classes = (UserPermission,)
+    authentication_classes = (TokenAuthentication,)
+
+class getUser(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        serilizer = UserSerilizer(request.user)
+        return Response(serilizer.data)
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
