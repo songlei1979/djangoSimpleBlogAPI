@@ -17,7 +17,7 @@ def Index(request):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerilizer
-    # permission_classes = (UserPermission,)
+    permission_classes = (UserPermission,)
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
