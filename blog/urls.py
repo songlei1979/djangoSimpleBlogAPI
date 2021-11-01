@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from blog.views import Index, PostViewSet, CategoryViewSet, ProfileViewSet, CommentViewSet, UserViewSet, getUser
+from blog.views import Index, PostViewSet, CategoryViewSet, ProfileViewSet, CommentViewSet, UserViewSet, getUser, \
+    likePost, disLikePost
 
 # PostList, PostDetails
 
@@ -18,6 +19,8 @@ router.register('users', UserViewSet, basename='users')
 urlpatterns=[
     path('', Index),
     path('api/getuser/', getUser.as_view()),
+    path('api/likepost/', likePost.as_view()),
+    path('api/dislikepost/', disLikePost.as_view()),
     path('api/', include(router.urls)),
 
 ]

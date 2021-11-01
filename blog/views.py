@@ -7,6 +7,7 @@ from rest_framework import viewsets, permissions, authentication
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from blog.models import Post, Category, Profile, Comment
@@ -30,6 +31,36 @@ class getUser(APIView):
     def get(self, request):
         serilizer = UserSerilizer(request.user)
         return Response(serilizer.data)
+
+class likePost(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def patch(self, request):
+        userID = request.data["user_id"]
+        postID = request.data["post_id"]
+        user = User.objects.get(id=userID)
+        post = Post.objects.get(id=postID)
+        if (post.likes.add(user)):
+            post.save()
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        return Response(status=HTTP_400_BAD_REQUEST)
+
+class disLikePost(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def patch(self, request):
+        userID = request.data["user_id"]
+        postID = request.data["post_id"]
+        user = User.objects.get(id=userID)
+        post = Post.objects.get(id=postID)
+        if (post.likes.remove(user)):
+            post.save()
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        return Response(status=HTTP_400_BAD_REQUEST)
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
