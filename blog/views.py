@@ -45,7 +45,7 @@ class likePost(APIView):
             post.save()
             return Response(status=HTTP_204_NO_CONTENT)
 
-        return Response(status=HTTP_400_BAD_REQUEST)
+        # return Response(status=HTTP_400_BAD_REQUEST)
 
 class disLikePost(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -60,7 +60,7 @@ class disLikePost(APIView):
             post.save()
             return Response(status=HTTP_204_NO_CONTENT)
 
-        return Response(status=HTTP_400_BAD_REQUEST)
+        # return Response(status=HTTP_400_BAD_REQUEST)
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
