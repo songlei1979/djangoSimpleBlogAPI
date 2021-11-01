@@ -26,5 +26,4 @@ urlpatterns = [
     path('auth/', obtain_auth_token)
 ]
 
-if settings.DEBUG is True:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
