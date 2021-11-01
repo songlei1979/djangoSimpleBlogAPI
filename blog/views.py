@@ -42,13 +42,13 @@ class likePost(APIView):
         user = User.objects.get(id=userID)
         post = Post.objects.get(id=postID)
         if (post.likes.add(user)):
-            send_mail(
-                'Subject here',
-                'Here is the message.',
-                'songl08@wairaka.com',
-                ['gabriel_sl19798@hotmail.com'],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     'Subject here',
+            #     'Here is the message.',
+            #     'songl08@wairaka.com',
+            #     ['gabriel_sl19798@hotmail.com'],
+            #     fail_silently=False,
+            # )
             post.save()
 
             return Response(status=HTTP_200_OK)
@@ -58,13 +58,13 @@ class likePost(APIView):
 class disLikePost(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    send_mail(
-        'Subject here',
-        'Here is the message.',
-        'songl08@wairaka.com',
-        ['gabriel_sl19798@hotmail.com'],
-        fail_silently=False,
-    )
+    # send_mail(
+    #     'Subject here',
+    #     'Here is the message.',
+    #     'songl08@wairaka.com',
+    #     ['gabriel_sl19798@hotmail.com'],
+    #     fail_silently=False,
+    # )
     def patch(self, request):
 
         userID = request.data["user_id"]
